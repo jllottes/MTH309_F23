@@ -167,12 +167,19 @@ class house_transform_bk(house_transform):
         s = 0.2
         xlim_padded  = np.array((self.xlim[0] - s*xlim_diff, self.xlim[1] + s*xlim_diff))*max(1, 1/rxy)
         ylim_padded  = np.array((self.ylim[0] - s*ylim_diff, self.ylim[1] + s*ylim_diff))*max(1, rxy)
-
-        p = bk.figure(plot_width=plot_height,
-                      plot_height=plot_height,
-                      title = "Before transformation",
-                      tools="pan, wheel_zoom, box_zoom,reset"
-                      )
+        
+        try:
+            p = bk.figure(plot_width=plot_height,
+                          plot_height=plot_height,
+                          title = "Before transformation",
+                          tools="pan, wheel_zoom, box_zoom,reset"
+                          )
+        except:
+            p = bk.figure(width=plot_height,
+                          height=plot_height,
+                          title = "Before transformation",
+                          tools="pan, wheel_zoom, box_zoom,reset"
+                          )
         p.add_layout(LinearAxis(), 'right')
         p.add_layout(LinearAxis(), 'above')
 
@@ -230,16 +237,27 @@ class house_transform_bk(house_transform):
         p.line(xlim_padded,[0, 0],  line_width=3, color= axes_color)
 
 
+        try:
+            q = bk.figure(plot_width=plot_height,
+                          plot_height=plot_height,
+                          y_axis_location="left",
+                          title="After transformation",
+                          match_aspect=True,
+                          x_range=p.x_range,
+                          y_range=p.y_range,
+                          tools="pan, wheel_zoom, box_zoom,reset"
+                          )
+        except:
+            q = bk.figure(width=plot_height,
+                          height=plot_height,
+                          y_axis_location="left",
+                          title="After transformation",
+                          match_aspect=True,
+                          x_range=p.x_range,
+                          y_range=p.y_range,
+                          tools="pan, wheel_zoom, box_zoom,reset"
+                          )
 
-        q = bk.figure(plot_width=plot_height,
-                      plot_height=plot_height,
-                      y_axis_location="left",
-                      title="After transformation",
-                      match_aspect=True,
-                      x_range=p.x_range,
-                      y_range=p.y_range,
-                      tools="pan, wheel_zoom, box_zoom,reset"
-                      )
         q.add_layout(LinearAxis(), 'right')
         q.add_layout(LinearAxis(), 'above')
 
